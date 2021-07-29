@@ -1,4 +1,5 @@
 require('../config/database');
+require('dotenv').config();
 const Weather = require('../db/models/Weather');
 const fetch = require('node-fetch');
 const apiKey = '0f500b7cdfb18a7410e0ba7628947a53';
@@ -14,7 +15,7 @@ module.exports = weatherRepository = {
     },
     getTempAPI: async (cityName) => {
         try {
-            const url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=es&units=metric&appid=${apiKey}`;
+            const url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=es&units=metric&appid=${process.env.API_KEY}`;
             const response = await fetch(url);
             const informacion = await response.json();
             return informacion.main.temp;
